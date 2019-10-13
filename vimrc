@@ -34,6 +34,9 @@ Plugin 'wlangstroth/vim-racket'
 " c++ plugin
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
+"
+Plugin 'vim-python/python-syntax'
+
 " }}}
 " Vundle Postamble {{{
 

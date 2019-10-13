@@ -10,10 +10,7 @@ from shutil import copyfile
 import click
 
 
-DOTFILES: List[Tuple[str, str]] = [
-    ("~/.tmux.conf", "tmux.conf"),
-    ("~/.vimrc", "vimrc")
-]
+DOTFILES: List[Tuple[str, str]] = [("~/.tmux.conf", "tmux.conf"), ("~/.vimrc", "vimrc")]
 
 
 @click.group()
@@ -24,7 +21,7 @@ def main():
 @main.command()
 def deploy():
     """Deploy the dotfiles."""
-    dotfiles = [(expanduser(df[0]), df[1]) for df in DOTFILES]
+    dotfiles: Tuple[str, str] = [(expanduser(df[0]), df[1]) for df in DOTFILES]
 
     for system_file, my_file in dotfiles:
         click.secho(system_file)
