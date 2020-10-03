@@ -1,3 +1,4 @@
 clean-pyc:
-	find . -name '*.pyc' -exec rm --force {} +
-	find . -name '*.pyo' -exec rm --force {} + name '*~' -exec rm --force  {}
+	find . -name '*.pyc' -delete
+	find . -name '__pycache__' -type d | xargs rm -rf
+	rm -rf *.egg *.egg-info/
