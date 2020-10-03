@@ -1,22 +1,12 @@
-"-----------------------------
-"       (_)                   
-" __   ___ _ __ ___  _ __ ___ 
-" \ \ / / | '_ ` _ \| '__/ __|
-"  \ V /| | | | | | | | | (__ 
-" (_)_/ |_|_| |_| |_|_|  \___|
-"                          
-"-----------------------------
-"
 " Vundle Preamble {{{
+set nocompatible        " required by vundle
+filetype off            " required by vundle
 
-set nocompatible             " required by vundle
-filetype off                 " required by vundle
-
-" set the runtime path to include Vundle and initialize
+" Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " }}}
+
 " Vundle Plugins {{{
 
 " required by Vundle
@@ -34,53 +24,56 @@ Plugin 'wlangstroth/vim-racket'
 " c++ plugin
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
-"
-Plugin 'vim-python/python-syntax'
+" black plugin
+Plugin 'psf/black'
+
+" toml syntax highlighting
+Plugin 'cespare/vim-toml'
 
 " }}}
-" Vundle Postamble {{{
 
+" Vundle Postamble {{{
 " ALL plugins must be added before this line
 call vundle#end()           " required by vundle
 filetype plugin indent on   " required by vundle
-
 " }}}
+
+" vim-plug section {{{
+call plug#begin('~/.vim/plugged')
+call plug#end()
+" }}}
+
 " Misc {{{
-
 set encoding=utf-8
-
 " }}}
-" Spaces & Tabs {{{
 
+" Spaces & Tabs {{{
 set tabstop=4      " number of visual spaces per tab
 set softtabstop=4  " number of spaces in tab when editing
 set shiftwidth=4   " number of spaces used in indenting
 set expandtab      " tabs are spaces
-
 " }}}
-" UI & Layout {{{
 
+" UI & Layout {{{
 set number
-set cc=80
+set cc=88
 set nowrap
 set lazyredraw
-
 " }}}
-" Search {{{
 
+" Search {{{
 set incsearch   " search as characters are entered
 set hlsearch    " highlight matches
 set showmatch   " highlight matching [{()}]
-
 " }}}
-" Colors {{{
 
+" Colors {{{
 syntax enable
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = "soft"
-
 " }}}
+
 " Key Mappings {{{
 
 " re-map Esc
