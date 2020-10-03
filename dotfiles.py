@@ -1,21 +1,19 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3.8
 """Module docstring."""
-
 import filecmp
 from os.path import expanduser
-
-from typing import List, Tuple
 from shutil import copyfile
+from typing import List
+from typing import Tuple
 
 import click
-
 
 DOTFILES: List[Tuple[str, str]] = [("~/.tmux.conf", "tmux.conf"), ("~/.vimrc", "vimrc")]
 
 
 @click.group()
 def main():
-    """Pass."""
+    """Pass"""
 
 
 @main.command()
