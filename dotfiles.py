@@ -1,29 +1,46 @@
 #!/usr/bin/env python3.8
-"""Module docstring."""
 import filecmp
-from os.path import expanduser
+from pathlib import Path
 from shutil import copyfile
 from typing import List
-from typing import Tuple
+from typing import NamedTuple
 
 import click
 
-DOTFILES: List[Tuple[str, str]] = [("~/.tmux.conf", "tmux.conf"), ("~/.vimrc", "vimrc")]
+
+class Dotfile(NamedTuple):
+    my_config: Path
+    system_path: Path
+
+
+DOTFILES: List[Dotfile] = [
+    Dotfile(my_config=Path("tmux.conf"), system_path=Path("~/.tmux.conf").expanduser()),
+    Dotfile(my_config=Path("vimrc"), system_path=Path("~/.vimrc").expanduser()),
+]
 
 
 @click.group()
 def main():
-    """Pass"""
+    """Manage system dotfiles."""
 
 
 @main.command()
 def deploy():
-    """Deploy the dotfiles."""
-    dotfiles: Tuple[str, str] = [(expanduser(df[0]), df[1]) for df in DOTFILES]
+    """Deploy DOTFILES to system.
 
-    for system_file, my_file in dotfiles:
-        click.secho(system_file)
-        if not filecmp.cmp(my_file, system_file):
-            copyfile(my_file, system_file)
-        else:
-            click.secho("> Files are the same, skipping", fg="yellow")
+    If the `system_path` of the dotfile already exists and matches the repo version,
+    do nothing. Otherwise, copy the repo config to the system path, overwriting
+    anything that might be there.
+
+    """
+    for my_config, system_path in DOTFILES:
+        click.secho(f"> {my_config.absolute()} -> {system_path.absolute()}", fg="blue")
+
+        if not system_path.exists():
+            click.secho(f"> {system_path} does not exist, creating", fg="green")
+        elif filecmp.cmp(my_config, system_path):
+            click.secho(f"> {system_path} is the same, skipping", fg="yellow")
+            continue
+
+        click.secho(f"> Deploying config to {system_path}", fg="green")
+        copyfile(my_config, system_path)
